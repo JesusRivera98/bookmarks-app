@@ -106,6 +106,7 @@ app.post('/bookmarks', jsonParser, (req, res) => {
 
     console.log(req);
     console.log('body', req.body);
+    console.log(req.headers['application/x-www-form-urlencoded']);
     let title = req.body.title;
     let description = req.body.description;
     let url = req.body.url;
@@ -176,7 +177,7 @@ app.delete('/bookmark/:id', (req, res) => {
 });
 
 //Patch a bookmark
-app.patch('/bookmark/:id', (req, res) => {
+app.patch('/bookmark/:id', jsonParser, (req, res) => {
     console.log("Getting bookmark by id, ");
 
     console.log("body", req.body);
