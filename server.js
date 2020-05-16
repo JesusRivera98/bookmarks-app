@@ -6,6 +6,8 @@ const validateToken = require('./middleware/validateToken');
 
 const mongoose = require('mongoose');
 const { Bookmarks } = require('./models/bookmarksModel');
+const {DATABASE_URL, PORT} = require('./config');
+const cors = require('./middleware/cors');
 
 const uuid = require('uuid');
 
@@ -14,7 +16,8 @@ const jsonParser = bodyParser.json();
 
 //const API_TOKEN = "2abbf7c3-245b-404f-9473-ade729ed4653.";
 
-
+app.use(cors);
+app.use(express.static("public"));
 app.use(morgan('dev'));
 
 function middleware(req, res, next) {
@@ -93,6 +96,7 @@ app.get('/bookmarks', middleware, (req, res) => {
 //Get bookmark by title
 app.get('/bookmark', (req, res) => {
     console.log("Getting bookmark by title, ");
+    console.log("query is :", req);
 
     let title = req.query.title;
 
@@ -137,10 +141,10 @@ app.get('/bookmark', (req, res) => {
 
 //Bookmark new bookmark
 app.post('/bookmarks', jsonParser, (req, res) => {
-
-    console.log(req);
-    console.log('body', req.body);
-    console.log(req.headers['application/x-www-form-urlencoded']);
+    console.log('adding a bookmark')
+    //console.log(req);
+    //console.log('body', req.body);
+    //console.log(req.headers['application/x-www-form-urlencoded']);
     let title = req.body.title;
     let description = req.body.description;
     let url = req.body.url;
@@ -178,15 +182,17 @@ app.post('/bookmarks', jsonParser, (req, res) => {
         url: url,
         rating: rating
     };
+    console.log(newBookmark);
 
     Bookmarks
         .createBookmark(newBookmark)
         .then(result => {
             if (result.errmsg) {
-                res.statusMessage = "The id of that bookmark alreeady exists in the database." +
+                res.statusMessage = "The id of that bookmark already exists in the database." +
                     result.errmsg;
                 return res.status(409).end();
             }
+            console.log(result);
             return res.status(201).json(result);
         })
         .catch(err => {
@@ -201,8 +207,8 @@ app.post('/bookmarks', jsonParser, (req, res) => {
 
 //Delete a bookmark
 app.delete('/bookmark/:id', (req, res) => {
-    console.log(req.params.id);
-    console.log(req.path.id);
+    console.log('Deleting bookmark');    
+    //console.log("req: \n", req);
     let id = req.params.id;
     //f1724b45-e9f8-4d7c-aca4-2f5d8d67b69f
     if (!id) {
@@ -341,30 +347,29 @@ app.patch('/bookmark/:id', jsonParser, (req, res) => {
     */
 });
 
-app.listen(8080, () => {
-    console.log("This server is running in port 8080.");
+app.listen( PORT, () => {
+    console.log( "This server is running on port 8080" );
 
-    new Promise((resolve, reject) => {
+    new Promise( ( resolve, reject ) => {
 
         const settings = {
-            useNewParser: true,
-            useUnifiedTopology: true,
+            useNewUrlParser: true, 
+            useUnifiedTopology: true, 
             useCreateIndex: true
         };
-
-        mongoose.connect('mongodb://localhost/bookmarksdb', settings, (err) => {
-            if (err) {
-                return reject(err);
+        mongoose.connect( DATABASE_URL, settings, ( err ) => {
+            if( err ){
+                return reject( err );
             }
-            else {
-                console.log("Database connected successfully.");
+            else{
+                console.log( "Database connected successfully." );
                 return resolve();
             }
         })
     })
-        .catch(err => {
-            console.log(err);
-        });
+    .catch( err => {
+        console.log( err );
+    });
 });
 
 //http://localhost:8080

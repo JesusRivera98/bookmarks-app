@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Bookmarks App</title>
+        <link href="./css/index.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <form class="bookmarks-form">
+            <label>
+                Click the buttton to get the full list of bookmarks
+            </label>
+            <button id="submit-btn" type="submit">
+                Get bookmarks
+            </button>
+        </form>
+        
+        <form class="add-bookmark-form">            
+            <label>
+                Click the buttton to add a bookmark
+            </label>          
+            <label for="bookmarkTitle">
+                Title:
+            </label>
+            <input type="text" id="bookmarkTitle" />
+            <label for="bookmarkDescription">
+                Description:
+            </label>
+            <input type="text" id="bookmarkDescription" />    
+            <label for="bookmarkUrl">
+                Url:
+            </label>
+            <input type="text" id="bookmarkUrl" />
+            <label for="bookmarkRating">
+                Rating:
+            </label>
+            <input type="number" id="bookmarkRating" />
+            <button type="submit">
+                Add bookmark
+            </button>
+        </form>
+        
+        <form class="delete-bookmark-form">
+            <label>
+                Click the buttton to delete the bookmarks by id
+            </label>
+            <label for="bookmarkIdToDelete">
+                Id:
+            </label>
+            <input type="text" id="bookmarkIdToDelete" />
+            <button type="submit" id='deleteSubmit'>
+                Delete bookmark
+            </button>
+        </form>
+        
+        <form class="update-bookmark-form">
+            
+                <label>
+                    Click the buttton to update bookmarks by id
+                </label>
+            
+            
+                <label for="updateBookmarkTitle">
+                    Title:
+                </label>
+                <input type="text" id="updateBookmarkTitle" />
+            
+            
+                <label for="updateBookmarkDescription">
+                    Description:
+                </label>
+                <input type="text" id="updateBookmarkDescription" />    
+            
+            
+                <label for="updateBookmarkUrl">
+                    Url:
+                </label>
+                <input type="text" id="updateBookmarkUrl" />
+            
+            
+                <label for="updateBookmarkRating">
+                    Rating:
+                </label>
+                <input type="number" id="updateBookmarkRating" />
+            
+            <button type="submit">
+                Update bookmark
+            </button>
+            <label for="bookmarkIdToUpdate">
+                Id:
+            </label>
+            <input type="text" id="bookmarkIdToUpdate" />            
+        </form>
+
+        <form class="get-titled-bookmarks-form">
+            
+                <label>
+                    Click the buttton to get the list of bookmarks with an specific title
+                </label>
+            
+            
+            <label for="bookmarkTitleToGet">
+                Title:
+            </label>
+            <input type="text" id="bookmarkTitleToGet" />
+            <button type="submit">
+                Get bookmarks
+            </button>
+        </form>
+
+        <section class="results">
+
+        </section>
+        <script src="./js/index.js"></script>
+    </body>
+</html>

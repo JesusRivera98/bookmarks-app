@@ -2,6 +2,7 @@ const API_TOKEN = "2abbf7c3-245b-404f-9473-ade729ed4653";
 
 function validateToken(req, res, next){
     //console.log(req);
+    console.log(req.authorization);
     let token = req.headers.authorization;
     let book_api_key = req.headers['book-api-key'];
     let apiKey = req.query.apiKey;

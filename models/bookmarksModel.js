@@ -29,7 +29,7 @@ const bookmarksSchema = mongoose.Schema({
 const bookmarksCollection = mongoose.model('bookmarks', bookmarksSchema);
 
 const Bookmarks = {
-    createBookmark: function (newBookmark) {
+    createBookmark : function (newBookmark) {
         return bookmarksCollection
             .create(newBookmark)
             .then(createdBookmark => {
@@ -39,7 +39,7 @@ const Bookmarks = {
                 throw new Error(err);
             });
     },
-    getAllBookmarks: function () {
+    getAllBookmarks : function () {
         return bookmarksCollection
             .find()
             .then(allBookmarks => {
@@ -49,7 +49,7 @@ const Bookmarks = {
                 return err;
             });
     },
-    getBookmarkBytitle: function (title) {
+    getBookmarkBytitle : function (title) {
         return bookmarksCollection
             .find({ title: title })
             .then(titledBookmarks => {
@@ -59,91 +59,53 @@ const Bookmarks = {
                 return err;
             });
     },
-    deleteBookmarById: function (id) {
+    deleteBookmarById : function (id) {
+        console.log('id en model', id)
+        bookmarksCollection
+        .find()
+            .then(titledBookmarks => {
+                console.log(titledBookmarks);
+            })
         return bookmarksCollection
             .deleteOne({ id: id }, function (err) {
                 if (err) return handleError(err);
                 // deleted at most one tank document
-            });
-        //bookmarksCollection.save();
-        return bookmarksCollection
-            .find()
-            .then(allBookmarks => {
-                return allBookmarks;
             })
             .catch(err => {
                 return err;
             });
     },
-    patchBookmarkById: function (id) {
+    patchBookmarkById : function (id) {
         return bookmarksCollection
-            .updateOne({ id: id }, values)
-        //bookmarksCollection.save();
-        return bookmarksCollection
-            .find({ id: id })
-            .then(titledBookmarks => {
-                return titledBookmarks;
-            })
+            .updateOne({ id: id }, values)        
             .catch(err => {
                 return err;
             });
     },
-    updateBookmarkTitle: function (id, value) {
+    updateBookmarkTitle : function (id, value) {
         return bookmarksCollection
             .updateOne({ id: id }, { title: value })
-
-        //bookmarksCollection.save();
-
-        return bookmarksCollection
-            .find({ id: id })
-            .then(titledBookmarks => {
-                return titledBookmarks;
-            })
             .catch(err => {
                 return err;
             });
     },
-    updateBookmarkDescription: function (id, value) {
+    updateBookmarkDescription : function (id, value) {
         return bookmarksCollection
             .updateOne({ id: id }, { description: value })
-
-        //bookmarksCollection.save();
-
-        return bookmarksCollection
-            .find({ id: id })
-            .then(titledBookmarks => {
-                return titledBookmarks;
-            })
             .catch(err => {
                 return err;
             });
     },
-    updateBookmarkUrl: function (id, value) {
+    updateBookmarkUrl : function (id, value) {
         return bookmarksCollection
             .updateOne({ id: id }, { url: value })
-
-        //bookmarksCollection.save();
-
-        return bookmarksCollection
-            .find({ id: id })
-            .then(titledBookmarks => {
-                return titledBookmarks;
-            })
             .catch(err => {
                 return err;
             });
     },
-    updateBookmarkRating: function (id, value) {
+    updateBookmarkRating : function (id, value) {
         return bookmarksCollection
             .updateOne({ id: id }, { rating: value })
-
-        //bookmarksCollection.save();
-
-        return bookmarksCollection
-            .find({ id: id })
-            .then(titledBookmarks => {
-                return titledBookmarks;
-            })
             .catch(err => {
                 return err;
             });
